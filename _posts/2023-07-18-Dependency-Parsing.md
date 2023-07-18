@@ -1,22 +1,13 @@
-\---
-
+---
 layout: post
-
 title: 依存分析简介
-
 date: 2023-07-18
-
 author: YMieMie
-
-tags: [Dependency Parsing , NLP]
-
+tags: [nlp, Dependency]
 comments: true
-
 toc: true
-
 pinned: true
-
-\---
+---
 
 # Dependency Parsing 依存分析
 
