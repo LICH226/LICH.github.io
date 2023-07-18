@@ -70,5 +70,3 @@ pinned: true
 
 [![pCTG1Zn.md.png](https://s1.ax1x.com/2023/07/18/pCTG1Zn.md.png)](https://imgse.com/i/pCTG1Zn)
 
-
-
