@@ -9,6 +9,9 @@ toc: true
 pinned: true
 ---
 
+一篇关于依存分析的笔记
+
+
 # Dependency Parsing 依存分析
 
 课程链接：[百度AI Studio课程_学习成就梦想，AI遇见未来_AI课程 - 百度AI Studio - 人工智能学习与实训社区 (baidu.com)](https://aistudio.baidu.com/aistudio/education/lessonvideo/1000411)
