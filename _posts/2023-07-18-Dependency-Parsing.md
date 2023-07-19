@@ -5,8 +5,6 @@ date: 2023-07-18
 author: YMieMie
 tags: [nlp, Dependency]
 comments: true
-toc: true
-pinned: true
 ---
 
 一篇关于依存分析的笔记
