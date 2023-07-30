@@ -6,9 +6,8 @@ Author: YMieMie
 tags: [NLP, document]
 comments: true
 ---
-# DataWhale《AI夏令营-NLP赛事实践》
-
 这篇博客用来记录datawhale暑期夏令营NLP赛事实践的笔记和心得代码等。
+# DataWhale《AI夏令营-NLP赛事实践》
 
 ## 赛题解析  基于论文摘要的文本分类与关键词抽取挑战赛
 
