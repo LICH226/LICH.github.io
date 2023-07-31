@@ -522,3 +522,132 @@ test_data['label'] = test_label
 test_data[['uuid', 'Keywords', 'label']].to_csv('submit_task1.csv', index=None)
 ```
 
+## 微调ChatGLM2-6b大模型
+
+### 什么是大模型
+
+像chatgpt、claude AI、文心一言，基于深度学习的自然语言处理模型，具有大规模的参数，比如gpt-3就有1750亿的参数，这种模型通过对大量文本的数据进行学习理解和生成人类的自然语言。
+
+### 大模型的原理
+
+大模型，如GPT-3，是一个深度学习模型，更具体地说，是一个基于Transformer的自然语言处理模型。他们的原理是基于机器学习，从大量的数据中学习和理解人类语言。大模型是通过监督学习训练的，给定一个输入（比如一个句子的前半部分），该模型需要预测一个目标输出（比如句子的后半部分）。通过这种方式，模型可以生成连贯的文本。
+
+```markdown
+{
+	"instruction":"你是谁？",
+	"input":"",
+	"output":"我是甄嬛，家父是大理寺少卿甄远道。"
+}
+```
+
+### 大模型是如何训练的
+
+OpenAI开发chatGPT的三个主要步骤：大尺寸预训练+指令微调+RLHF
+
+**大尺寸预训练**：在大规模的文本数据集上进行训练，本质还是一个监督学习的过程。预训练的目的是让模型学会理解和生成人类语言的基本模式。
+
+**指令微调**：在一个更小但专门针对特定任务的数据集上进行微调。这个数据集通常由人工生成，包含了模型需要学会的任务的特定指令。例如，这次就是让模型学会如何进行二分类。
+
+**RLHF**：这是一个强化学习过程，模型会根据人类提供的反馈进行学习和优化。首先，会收集一些模型的预测结果，并让人来评估这些结果的好坏。然后，会使用这些评估结果作为奖励，训练模型优化其预测性能。
+
+### 大模型微调
+
+#### LoRA
+
+冻结预训练模型的矩阵参数，并选用A和B矩阵来替代，在下游任务时只更新A和B。
+
+假设要在下游任务微调一个预训练模型（如GPT-3)，则需要更新预训练模型参数，公式表示如下：$W_0$是预训练模型的初始化参数，$\triangle W$就是需要更新的参数。如果是全参数微调，则他的参数量过大。
+
+$h =  W_0x  + \triangle W x = W_0x + BAx$
+
+![image-20230731165357539](C:\Users\15295\AppData\Roaming\Typora\typora-user-images\image-20230731165357539.png)
+
+在推理的过程中，只需要把该变量加载到原模型，就不会有任何延迟，没有增加推理成本。
+
+#### P-tuning v2
+
+P-tuning v2来源于清华大学团队提出的，是官方使用的微调方法。
+
+具体来说，P-tuning v2首先确定模型在处理特定任务时需要新的参数（这些参数通常是模型的某些特性或功能），然后在模型中添加这些新的参数，以提高模型在特定任务上的表现。
+
+[【官方教程】ChatGLM-6B 微调：P-Tuning，LoRA，Full parameter_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1fd4y1Z7Y5/?vd_source=05bfd0f9794911be751ac10379ae7e3b)
+
+### 建立数据集
+
+要微调大模型就需要明白，想要大模型完成什么任务。对于我们这次学习课程，那我们的任务就是要大模型来完成二分类的任务，因为原生chatglm对这个任务完成度并不好，所以需要微调。现在需要把train数据集构建成大模型能够接受的数据结构。
+
+### 代码思路
+
+```python
+#导入数据
+import pandas as pd
+
+train_df = pd.read_csv('train.csv')
+test_df = pd.read_csv('test.csv')
+```
+
+```python
+#制作数据集
+res = []
+
+for i in range(len(train_df)):
+    paper_item = train_df.loc[i]
+    tmp = {
+    "instruction": "Please judge whether it is a medical field paper according to the given paper title and abstract, output 1 or 0, the following is the paper title, author and abstract -->",
+    "input": f"title:{paper_item[1]},abstract:{paper_item[3]}",
+    "output": str(paper_item[5])
+  }
+    res.append(tmp)
+
+import json
+
+with open('paper_label.json', mode='w', encoding='utf-8') as f:
+    json.dump(res, f, ensure_ascii=False, indent=4)
+```
+
+- 首先需要clone微调脚本：git clone  https://github.com/KMnO4-zx/huanhuan-chat.git`
+- 进入目录安装环境：cd ./huanhuan-chat；pip install -r requirements.txt 
+- 将脚本中的model_name_or_path更换为你本地的chatglm2-6b模型路径，然后运行脚本：sh xfg_train.sh
+- 微调过程大概需要两个小时（我使用阿里云A10-24G运行了两个小时左右），微调过程需要18G的显存，推荐使用24G显存的显卡，比如3090，4090等。
+- 当然，我们已经把训练好的lora权重放在了仓库里，您可以直接运行下面的代码。
+
+```python
+#加载权重 进行预测
+from peft import PeftModel
+from transformers import AutoTokenizer, AutoModel, GenerationConfig, AutoModelForCausalLM
+
+model_path = "chatglm2-6b"
+model = AutoModel.from_pretrained(model_path, trust_remote_code=True).half().cuda()
+tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
+# 加载lora权重
+model = PeftModel.from_pretrained(model, 'huanhuan-chat/output/label_xfg').half()
+model = model.eval()
+response, history = model.chat(tokenizer, "你好", history=[])
+response
+```
+
+```python
+# 预测函数
+
+def predict(text):
+    response, history = model.chat(tokenizer, f"Please judge whether it is a medical field paper according to the given paper title and abstract, output 1 or 0, the following is the paper title, author and abstract -->{text}", history=[],
+    temperature=0.01)
+    return response
+```
+
+```python
+#提交
+from tqdm import tqdm
+
+label = []
+
+for i in tqdm(range(len(test_df))):
+    test_item = test_df.loc[i]
+    test_input = f"title:{test_item[1]},author:{test_item[2]},abstract:{test_item[3]}"
+    label.append(int(predict(test_input)))
+
+test_df['label'] = label
+submit = test_df[['uuid', 'Keywords', 'label']]
+submit.to_csv('submit.csv', index=False)
+```
+
