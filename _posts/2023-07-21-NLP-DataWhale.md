@@ -4,6 +4,7 @@ title: NLP赛事实践
 date: 2023-07-21
 Author: YMieMie
 tags: [NLP, document]
+toc: true
 comments: true
 ---
 这篇博客用来记录datawhale暑期夏令营NLP赛事实践的笔记和心得代码等。

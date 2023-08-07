@@ -4,6 +4,7 @@ title: 依存分析简介
 date: 2023-07-18
 author: YMieMie
 tags: [nlp, Dependency]
+toc: true
 comments: true
 ---
 
