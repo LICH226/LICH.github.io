@@ -11,5 +11,3 @@ permalink: /about/
 ***qq: 1529555652*** 
 
 ***备注：博客和姓名***
-
-[![pCTegFH.jpg](https://s1.ax1x.com/2023/07/18/pCTegFH.jpg)](https://imgse.com/i/pCTegFH)
