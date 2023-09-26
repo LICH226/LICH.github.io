@@ -1337,7 +1337,7 @@ Min numerical gradient: 3.63E-03
 Min loss divided by 10: 4.37E-04
 ```
 
-![image-20230925215851639](C:\Users\15295\AppData\Roaming\Typora\typora-user-images\image-20230925215851639.png)
+[![pP7XyIH.png](https://z1.ax1x.com/2023/09/26/pP7XyIH.png)](https://imgse.com/i/pP7XyIH)
 
 训练过程，原理参照文章[论文精度-ULMFiT – YMieMie – 菜只因的博客 (ymiemie26.github.io)](https://ymiemie26.github.io/论文精度-ULMFiT/)
 
