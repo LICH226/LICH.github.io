@@ -1,4 +1,5 @@
 ---
+
 layout: post
 title: kaggle竞赛-Sentiment Analysis on Movie Reviews
 date: 2023-09-24
@@ -301,6 +302,8 @@ class TransformersVocab(Vocab):
 
 **textify**: 输入一段id序列，将其根据**sep**转为字符串
 
+**getstate和setstate**：CallbackHandler类还会维持一个**state_dict字典**，该字典会被传给各个Callback的回调槽的功能函数，并使用返回的值更新相应字段（也就意味着一个Callback类的回调槽功能函数的返回值为一个字典或者返回None，参见CallbackHandler._call_and_update()函数的实现）。state_dict会被用于fit()函数中的各种条件的判断与流程控制。
+
 ### Custom processor
 
 ```python
@@ -482,6 +485,8 @@ custom_transformer_model = CustomTransformerModel(transformer_model = transforme
 ```
 
 ## Learner : Custom Optimizer / Custom Metric
+
+关于Callbacks的一部分详细介绍可以看[第六篇 FastAI的回调系统_lr piecewise schedule-CSDN博客](https://blog.csdn.net/suredied/article/details/104044785)
 
 ```python
 from fastai.callbacks import *
@@ -1343,23 +1348,56 @@ Min loss divided by 10: 4.37E-04
 
 ```python
 learner.fit_one_cycle(1,max_lr=2e-03,moms=(0.8,0.7))
+```
+
+| epoch | train_loss | valid_loss | accuracy | error_rate | time  |
+| :---- | :--------- | :--------- | :------- | :--------- | :---- |
+| 0     | 1.012145   | 0.986139   | 0.600538 | 0.399462   | 03:30 |
+
+[![pPHW9hD.md.png](https://z1.ax1x.com/2023/09/27/pPHW9hD.md.png)](https://imgse.com/i/pPHW9hD)
+
+```python
 learner.save('first_cycle')
 seed_all(seed)
 learner.load('first_cycle');
 learner.freeze_to(-2)
 lr = 1e-5
 learner.fit_one_cycle(1, max_lr=slice(lr*0.95**num_groups, lr), moms=(0.8, 0.9))
+```
+
+| epoch | train_loss | valid_loss | accuracy | error_rate | time  |
+| :---- | :--------- | :--------- | :------- | :--------- | :---- |
+| 0     | 0.927349   | 0.900878   | 0.636935 | 0.363065   | 03:58 |
+
+[![pPHWSAK.md.png](https://z1.ax1x.com/2023/09/27/pPHWSAK.md.png)](https://imgse.com/i/pPHWSAK)
+
+```python
 learner.save('second_cycle')
 seed_all(seed)
 learner.load('second_cycle');
 learner.freeze_to(-3)
 learner.fit_one_cycle(1, max_lr=slice(lr*0.95**num_groups, lr), moms=(0.8, 0.9))
+```
+
+| epoch | train_loss | valid_loss | accuracy | error_rate | time  |
+| :---- | :--------- | :--------- | :------- | :--------- | :---- |
+| 0     | 0.894050   | 0.870450   | 0.648917 | 0.351083   | 04:25 |
+
+[![pPHWptO.md.png](https://z1.ax1x.com/2023/09/27/pPHWptO.md.png)](https://imgse.com/i/pPHWptO)
+
+```python
 learner.save('third_cycle')
 seed_all(seed)
 learner.load('third_cycle');
 learner.unfreeze()
 learner.fit_one_cycle(2, max_lr=slice(lr*0.95**num_groups, lr), moms=(0.8, 0.9))
 ```
+
+| epoch | train_loss | valid_loss | accuracy | error_rate | time  |
+| :---- | :--------- | :--------- | :------- | :--------- | :---- |
+| 0     | 0.704150   | 0.710882   | 0.702230 | 0.297770   | 10:32 |
+
+[![pPHRx76.md.png](https://z1.ax1x.com/2023/09/27/pPHRx76.md.png)](https://imgse.com/i/pPHRx76)
 
 简单预测一下：
 
@@ -1418,3 +1456,5 @@ sample_submission.to_csv("predictions.csv", index=False)
 - Jeremy Howard & Sebastian Ruder, Universal Language Model Fine-tuning for Text Classification (May 2018), https://arxiv.org/abs/1801.06146
 - Keita Kurita's article : [A Tutorial to Fine-Tuning BERT with Fast AI](https://mlexplained.com/2019/05/13/a-tutorial-to-fine-tuning-bert-with-fast-ai/) (May 2019)
 - Dev Sharma's article : [Using RoBERTa with Fastai for NLP](https://medium.com/analytics-vidhya/using-roberta-with-fastai-for-nlp-7ed3fed21f6c) (Sep 2019)
+- [第六篇 FastAI的回调系统_lr piecewise schedule-CSDN博客](https://blog.csdn.net/suredied/article/details/104044785)
+- [第七篇 FastAI模型训练_load learner-CSDN博客](https://blog.csdn.net/suredied/article/details/104254886)
