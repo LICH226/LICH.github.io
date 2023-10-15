@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 论文精读-GloVe: Global Vectors for Word Representation
+title: 论文精读-GloVe—Global Vectors for Word Representation
 date: 2023-10-14
 Author: YMieMie
 tags: [nlp]
