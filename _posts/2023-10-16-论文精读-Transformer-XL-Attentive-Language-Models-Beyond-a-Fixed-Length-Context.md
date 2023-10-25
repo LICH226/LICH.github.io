@@ -1,12 +1,13 @@
 ---
 layout: post
-title: 论文精读-Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context
+title: 论文精读-Transformer-XL
 date: 2023-10-16
 Author: YMieMie
 tags: [nlp]
 toc: true
 comments: true
 ---
+
 nlp打基础，读论文Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context
 
 # Abstract
