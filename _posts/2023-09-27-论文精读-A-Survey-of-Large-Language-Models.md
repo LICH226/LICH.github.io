@@ -16,19 +16,21 @@ LLM（ChatGPT）:含有更多参数的PLMs（BERT）
 
 我们特别关注了LLM的四个方面:
 
-1. pre-training:预训练
+- pre-training:预训练
 
-2. adaptation tuing:适应性调整
+- adaptation tuing:适应性调整
 
-3. utilization:利用
+- utilization:利用
 
-4. capacity evaluation:利用性评估
+- capacity evaluation:利用性评估
 
-   
+  
 
 摘要关键词：**Large Language Models; Emergent Abilities; Adaptation Tuning; Utilization; Alignment; Capacity Evaluation**
 
 # 1.Introduction
+
+在自然语言处理（NLP）领域中，Language Model（语言模型）是一种用于处理文本的统计模型或机器学习模型。它的主要目标是对给定的文本序列进行建模，以便能够预测下一个单词或字符的概率分布。
 
 ## 1.1 语言模型（LM）的研究可分为四个主要的发展阶段：
 
@@ -68,13 +70,13 @@ LLM与PLM有相似的预训练任务和结构，但是有更好的效果，并�
 
 聚焦三个主要的差别在LLMs和PLMs之间。
 
-1. LLM具有**emergent**能力（在复杂的任务上），而PLM不具有。
+- LLM具有**emergent**能力（在复杂的任务上），而PLM不具有。
 
-2. LLM革新人们使用AI和发展AI的方式。人们必须理解LLMs的工作，然后以LLMs的方式规范行为。
+- LLM革新人们使用AI和发展AI的方式。**prompting interface**。人们必须理解LLMs的工作，然后以LLMs的方式规范行为。
 
-3. LLM不再明确区分research和engineering。
+- LLM不再明确区分research和engineering。
 
-   
+  
 
 LLMs导致了通用人工智能的重新思考（artificial general intelligence（AGI））
 
@@ -86,18 +88,18 @@ CV领域，GPT4支持多模态。
 
 LLM的基础principles深入的研究探索：
 
-1. emergent abilities能力的突然出现。
-2. 研究界很难训练这种LLMs。
-3. 与人类价值和偏好结合。
+- emergent abilities能力的突然出现。
+- 研究界很难训练这种LLMs。
+- 与人类价值和偏好结合。
 
 
 
 对LLM的四个研究方面：
 
-1. pre-training (how to pretrain a capable LLM)
-2.  adaptation (how to effectively adapt pre-trained LLMs for better use)
-3. utilization (how to use LLMs for solving various downstream tasks)
-4. capability evaluation (how to evaluate the abilities of LLMs and existing empirical findings)
+- pre-training (how to pretrain a capable LLM)
+- adaptation (how to effectively adapt pre-trained LLMs for better use)
+- utilization (how to use LLMs for solving various downstream tasks)
+- capability evaluation (how to evaluate the abilities of LLMs and existing empirical findings)
 
 调研整理的网站，有相关LLm的[资源](https://github.com/RUCAIBox/LLMSurvey) 
 
@@ -175,37 +177,37 @@ $ \large a = \frac{\alpha}{\alpha + \beta}，G是由A,B,\alpha,\beta计算$
 
 介绍三种emergent的典型能力和代表性的模型。
 
-1. ***In-context learning***  GPT3
+- ***In-context learning***  GPT3
 
-2. ***Instruction following***  LaMDA-PT 
+- ***Instruction following***  LaMDA-PT 
 
-3. ***Step-by-step reasoning***  chain of thought
+- ***Step-by-step reasoning***  chain of thought
 
-   
+  
 
 ### Key Techniques for LLMs
 
 帮助大模型成功的几个techniques
 
-1. ***Scaling*** 合理利用compute budget
+- ***Scaling*** 合理利用compute budget
 
-2. ***Training***  分布式算法 框架 DeepSpeed Megatron-LM
+- ***Training***  分布式算法 框架 DeepSpeed Megatron-LM
 
-3. ***Ability eliciting***  chain-of-thought prompting
+- ***Ability eliciting***  chain-of-thought prompting
 
-4. ***Alignment tuning***  以人类的values helpful honest 匹配LLM  InstructGPT 是OpenAI 的GPT-3 的后继者模型. 旨在解决用户对GPT-3 的投诉，尤其是有关有毒或误导性输出的投诉。 使用来自人类反馈的强化学习(RLHF) 来增强可靠性和安全性。
+- ***Alignment tuning***  以人类的values helpful honest 匹配LLM  InstructGPT 是OpenAI 的GPT-3 的后继者模型. 旨在解决用户对GPT-3 的投诉，尤其是有关有毒或误导性输出的投诉。 使用来自人类反馈的强化学习(RLHF) 来增强可靠性和安全性。
 
-5. ***Tools manipulation***  在plain text corpora上表现还不错，在form of text 表现较差；收到预训练数据的限制。用外部工具解决，学会计算器计算和用搜索引擎搜索，装插件。
+- ***Tools manipulation***  在plain text corpora上表现还不错，在form of text 表现较差；收到预训练数据的限制。用外部工具解决，学会计算器计算和用搜索引擎搜索，装插件。
 
-   
+  
 ## 2.2 Technical Evolution of GPT-series Models
 
 OpenAI在 LLm上的研究历程
 
 ### Early Explorations
 
-1. ***GPT-1*** :  decoder-only Transformer 确立了基本原则 predicting the next word 无监督预训练+有监督的微调
-2. ***GPT-2***： 无监督训练、更多参数、更大数据集，提出了一个"claim"   each (NLP) task can be considered as the word prediction problem based on a subset of the world text
+- ***GPT-1*** :  decoder-only Transformer 确立了基本原则 predicting the next word 无监督预训练+有监督的微调
+- ***GPT-2***： 无监督训练、更多参数、更大数据集，提出了一个"claim"   each (NLP) task can be considered as the word prediction problem based on a subset of the world text
 
  
 
@@ -217,8 +219,8 @@ OpenAI在 LLm上的研究历程
 
 在以下两个方面继续加强：
 
-1. ***training on code data***  缺少对推理能力对于复杂的任务，如代码数学问题。在Codex（GPT3.5）上微调，效果好。
-2. ***Human alignment***   Proximal Policy Optimization (PPO) 　RL算法　在GPT-2中先应用。GPT-3用了InstructGPT，建立了three-stage reinforcement learning from human feedback (RLHF) algorithm.
+- ***training on code data***  缺少对推理能力对于复杂的任务，如代码数学问题。在Codex（GPT3.5）上微调，效果好。
+- ***Human alignment***   Proximal Policy Optimization (PPO) 　RL算法　在GPT-2中先应用。GPT-3用了InstructGPT，建立了three-stage reinforcement learning from human feedback (RLHF) algorithm.
 
 
 ### The Milestones of Language Models
@@ -260,16 +262,16 @@ GPT-4  多模态
 
 ### Models with Tens of Billions of Parameters
 
-1. Flan-T5 (11B version)    基础模型，[instruction tuning](https://zhuanlan.zhihu.com/p/623944861)
-2. CodeGen (11B version)  自回归模型，代码生成
-3. mT0 (13B version)          多语言任务
-4. PanGu-α  擅长中文下游任务，基于MindSpore框架开发
+- Flan-T5 (11B version)    基础模型，[instruction tuning](https://zhuanlan.zhihu.com/p/623944861)
+- CodeGen (11B version)  自回归模型，代码生成
+- mT0 (13B version)          多语言任务
+- PanGu-α  擅长中文下游任务，基于MindSpore框架开发
 
 ### Models with Hundreds of Billions of Parameters
 
-1. OPT (175B version)  OPT-IML（introduction-version)
-2. BLOOM (176B version) and BLOOMZ (176B version)  跨语种任务
-3. ChatGLM2-6B (a updated version for ChatGLM-6B ）   中文对话模型
+- OPT (175B version)  OPT-IML（introduction-version)
+- BLOOM (176B version) and BLOOMZ (176B version)  跨语种任务
+- ChatGLM2-6B (a updated version for ChatGLM-6B ）   中文对话模型
 
 ###  LLaMA Model Family
 
@@ -284,8 +286,8 @@ GPT-4  多模态
 </div>
  有four sizes (7B, 13B, 30B and 65B)
 
-1. Vicuna 多模态模型
-2. Alpaca 开源的instructe模型
+- Vicuna 多模态模型
+- Alpaca 开源的instructe模型
 
 ### Public API of LLMs
 
@@ -298,17 +300,17 @@ openAI提供了七个主要的接口**ada,babbage, curie, davinci (the most powe
 
 分类these corpora into six groups: **Books, CommonCrawl,Reddit links, Wikipedia, Code, and others.**
 
-1. **GPT-3 (175B)** was trained on a mixed dataset of 300B tokens, including CommonCrawl , WebText2,Books1,Books2,and Wikipedia.
-2. **PaLM (540B)** uses a pre-training dataset of 780Btokens, which is sourced from social media conversations,filtered webpages, books, Github, multilingual Wikipedia and news.
-3. **LLaMA** extracts training data from various sources,including CommonCrawl, C4, Github, Wikipedia,books, ArXiv, and StackExchange. The training data size for LLaMA (6B) and LLaMA (13B) is 1.0T tokens, while 1.4T tokens are used for LLaMA (32B) and LLaMA (65B).
+- **GPT-3 (175B)** was trained on a mixed dataset of 300B tokens, including CommonCrawl , WebText2,Books1,Books2,and Wikipedia.
+- **PaLM (540B)** uses a pre-training dataset of 780Btokens, which is sourced from social media conversations,filtered webpages, books, Github, multilingual Wikipedia and news.
+- **LLaMA** extracts training data from various sources,including CommonCrawl, C4, Github, Wikipedia,books, ArXiv, and StackExchange. The training data size for LLaMA (6B) and LLaMA (13B) is 1.0T tokens, while 1.4T tokens are used for LLaMA (32B) and LLaMA (65B).
 
 ## 3.3 Library Resource
 
 介绍开发大模型的相关库
 
-1. **Transformers** 提供模型结构的库
-2. **DeepSpeed** 深度学习优化库
-3. **Megatron-LM**  训练大规模语言模型的库
+- **Transformers** 提供模型结构的库
+- **DeepSpeed** 深度学习优化库
+- **Megatron-LM**  训练大规模语言模型的库
 
 # 4 PRE-TRAINING
 
@@ -316,25 +318,25 @@ openAI提供了七个主要的接口**ada,babbage, curie, davinci (the most powe
 
 代表性大模型的数据分布如下：
 
-![image-20231001151914140](C:\Users\15295\AppData\Roaming\Typora\typora-user-images\image-20231001151914140.png)
+![pieLpy4.png](https://z1.ax1x.com/2023/10/29/pieLpy4.png)
 
 ### 4.1.1 Data source
 
-预训练数据分为两类：general data 和 specialized data
+预训练数据分为两类：general data （赋予模型泛化能力）和 specialized data（赋予模型解决一般问题的能力）。
 
 #### General Text Data
 
-1. **Webpages**：网站爬取的文本质量参差不齐，需要作进一步的数据过滤和处理。
+- **Webpages**：网站爬取的文本质量参差不齐，需要作进一步的数据过滤和处理。
 
-2. **Conversation text**：提高对话能力。过多的对话数据会造成对instructions有效性的下降（将陈述句和直接疑问句理解为对话的开始）
+- **Conversation text**：提高对话能力。过多的对话数据会造成对instructions有效性的下降（将陈述句和直接疑问句理解为对话的开始）
 
-3. **Books**：学习语言知识，产生叙事性和连贯性的文本。
+- **Books**：学习语言知识，产生叙事性和连贯性的文本。
 
 #### Specialized Text Data
 
-1. **Multilingual text**: 增强对语言模型的能力，机器翻译、多语言摘要、多语言问答。
-2. **Scientific text**:增强对科学文本的理解能力。
-3. **Code**:Stack Exchange Github
+- **Multilingual text**: 增强对语言模型的能力，机器翻译、多语言摘要、多语言问答。
+- **Scientific text**:增强对科学文本的理解能力。
+- **Code**:Stack Exchange Github
 
 ### 4.1.2 Data Preprocessing
 
@@ -344,8 +346,8 @@ openAI提供了七个主要的接口**ada,babbage, curie, davinci (the most powe
 
 #### Quality Filtering
 
-1. **classified-based**: 可能会过滤一些高质量的数据
-2. **heuristic-based**:  Language Filtering、Metric Filtering、Statistic Filtering、Keyword Filtering
+- **classified-based**: 基于高质量的数据建立分类器，以此过滤一些低质量的数据
+- **heuristic-based**:  通过一系列设计好的规则来减少低质量的数据，Language based Filtering、Metric based Filtering、Statistic based Filtering、Keyword based Filtering
 
 #### De-duplication
 
@@ -359,11 +361,11 @@ openAI提供了七个主要的接口**ada,babbage, curie, davinci (the most powe
 
 将文本变为单个token序列用作LLm的输入。
 
-[subword tokenizers](https://zhuanlan.zhihu.com/p/620508648) 被广泛应用于transformer模型，包括Encoding tokenization,WordPiece tokenization andUnigram tokenization。
+[subword tokenizers](https://huggingface.co/learn/nlp-course/chapter6/1) 被广泛应用于transformer模型，包括EByte-Pair Encoding (BPE) tokenization,WordPiece tokenization andUnigram tokenization。
 
-1. **Encoding tokenization** GPT-2, BART, and LLaMA
-2. **WordPiece tokenization** BERT
-3. **Unigram tokenization** T5 and mBART
+- **Byte-Pair Encoding (BPE) tokenization** GPT-2, BART, and LLaMA
+- **WordPiece tokenization** BERT
+- **Unigram tokenization** T5 and mBART
 
 ### 4.1.3 Effect of Pre-training Data on LLMs
 
@@ -381,9 +383,11 @@ openAI提供了七个主要的接口**ada,babbage, curie, davinci (the most powe
 
 ## 4.2 Architecture
 
-### 4.2.1 Mainstream Architectures
+### 4.2.1 Typical Architectures
 
-现存的LLM主流架构可分为三个主要类型encoder-decoder, causal decoder, and prefix decoder
+[![pieqvWT.png](https://z1.ax1x.com/2023/10/29/pieqvWT.png)](https://imgse.com/i/pieqvWT)
+
+现存的LLM主流架构可分为三个主要类型**encoder-decoder, causal decoder, and prefix decoder**
 
 [![pPXJ6KS.png](https://z1.ax1x.com/2023/10/05/pPXJ6KS.png)](https://imgse.com/i/pPXJ6KS)
 
@@ -391,18 +395,28 @@ the blue, green, yellow and grey rounded rectangles indicate the attention betwe
 
 
 
-1. **Encoder-decoder Architecture**：编码器：multi-head self-attention，解码器：cross-attention
-2. **Causal Decoder Architecture**：unidirectional attention mask
-3. **Prefix Decoder Architecture**：允许prefix tokens双向attention ，而对generated tokens单向attention。编码和解码时共享参数，
+- **Encoder-decoder Architecture**：编码器：multi-head self-attention，解码器：cross-attention
+- **Causal Decoder Architecture**：unidirectional attention mask，因果解码器架构结合了单向注意掩码，以保证每个输入标记只能关注过去的标记本身。
+- **Prefix Decoder Architecture**：允许prefix tokens双向attention ，而对generated tokens单向attention。编码和解码时共享参数，一个实用的建议不是从头开始进行预训练，而是不断训练因果解码器，然后将它们转换为前缀解码器来加速收敛。
+- **Emergent Architectures **：为了提高效率，一些研究旨在设计新的语言建模架构，包括参数化状态空间模型（例如，S4、GSS 和 H3）、像 Hyena 这样的长卷积以及包含递归更新机制的类似 Transformer 的架构（例如，RWKV 和 RetNet）。
 
-### 4.2.2 Detailed Configuration（留着看）
+### 4.2.2 Detailed Configuration
+
+[![pieLSlF.png](https://z1.ax1x.com/2023/10/29/pieLSlF.png)](https://imgse.com/i/pieLSlF)
+
+
 
 #### **Normalization Methods**
-LayerNorm，RMSNorm，DeepNorm
+
+- **LayerNorm** 具体来说，每一层的所有激活的均值和方差都被计算为最近的，并重新缩放激活
+- **RMSNorm** 为了提高LayerNorm (LN)的训练速度
+- **DeepNorm** DeepNorm 由 Microsoft 提出，以稳定深度 Transformer 的训练。使用 DeepNorm 作为残差连接，Transformer 可以扩展到 1,000 层 ，这表明了稳定性和良好性能的优势。GLM-130B采用了它。
 
 #### **Normalization Position**
 
-post-LN, pre-LN, and sandwich-LN
+- **post-LN **然而，现有的工作发现，由于输出层附近的大梯度，具有 post-LN 的 Transformer 的训练往往不稳定。
+- **pre-LN** 与 post-LN 相比，具有 pre-LN 的 Transformer 在训练中更稳定，但是模型的效果较差。
+- **sandwich-LN** 基于 pre-LN，Sandwich-LN 在残差连接之前添加额外的 LN，以避免 Transformer 层输出中的值爆炸问题。然而，发现 Sandwich-LN 有时无法稳定 LLM 的训练，并可能导致训练崩溃。
 
 #### **Activation Functions**
 
@@ -410,27 +424,24 @@ GeLU，SwiFGLU，GeGLU
 
 #### **Position Embeddings**
 
-Absolute position embedding（sinusoidal and learned position embeddings）
+- **Absolute position embedding**   Transformer  中提出了绝对位置嵌入的两种变体，即sinusoidal and learned position embeddings，后者通常用于现有的预训练语言模型。
+- **Relative position embedding** Transformer-XL 中引入了相对 PE 的流行变体。与绝对 PE 相比，具有相对位置嵌入的 Transformer 可以推广到比序列更长的序列进行训练。
+- **Rotary Position Embedding** 旋转位置嵌入(RoPE)根据每个令牌的绝对位置设置特定的旋转矩阵。键和查询之间的分数可以用相对位置信息计算，具有良好的性能和长期衰减特性。
+- **ALiBi** 与相对位置嵌入类似，它根据键和查询之间的距离以惩罚偏差注意力分数。与 T5 等相对位置嵌入方法不同，ALiBi 中的惩罚分数是在没有任何可训练参数的情况下预定义的。
 
-Relative position embedding（Transformer-XL）
+#### Attention
 
-Rotary Position Embedding
-
-ALiBi
-
-#### Attention and Bias
-
-Full attention
-
-Sparse attention（极高计算速度）
-
-Multi-query attention（share the same linear transformation matrices on the keys and values）
-
-FlashAttention（been integrated into PyTorch ，DeepSpeed, and Megatron-LM ）
+- **Full attention** 在 vanilla Transformer 中，注意力机制是成对进行的，考虑到序列中所有标记对之间的关系。
+- **Sparse attention** GPT3采用了局部带稀疏注意(即Factorized Attention。每个查询不仅可以关注基于位置的令牌子集，达到减少计算复杂度的方法。
+- **Multi-query attention** 多查询注意是指不同头部在键和值上共享相同的线性变换矩阵的注意变体。它可以在不牺牲模型质量的情况下显着节省计算成本。
+- **FlashAttention（been integrated into PyTorch ，DeepSpeed, and Megatron-LM ）**与大多数现有的权衡模型质量以提高计算效率的近似注意方法不同，FlashAttention[228]建议从IO感知的角度优化gpu上注意模块的速度和内存消耗。
+- **PagedAttention**  受操作系统中经典的分页技术的启发，提出了PagedAttention来提高部署llm的内存效率和吞吐量。
 
 
 
-**总结：For stronger generalization and training stability, it is suggested to choose the pre RMSNorm for layer normalization, and SwiGLU or GeGLU as the activation function. In addition, LN may not be used immediately after embedding layers, which is likely to incur performance degradation.As for position embeddings, RoPE or ALiBi is a better choice since it performs better on long sequences. **
+**总结：为了更强的泛化和训练稳定性，建议选择预 RMSNorm 进行层归一化，将 SwiGLU 或 GeGLU 作为激活函数。此外，LN 可能不会在嵌入层之后立即使用，这可能会导致性能下降。至于位置嵌入，RoPE 或 ALiBi 是一个更好的选择，因为它在长序列上表现更好。**
+
+
 
 ### 4.2.3 Pre-training Tasks
 
